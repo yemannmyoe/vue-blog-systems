@@ -16,18 +16,22 @@
         <PostLists :posts="posts"></PostLists>
        </div>
        <div v-else>
-        loading .......
+      <Spinner>
+         
+      </Spinner>
        </div>
     </div>
 </template>
    
 <script>
+import Spinner from '../components/Spinner'
 import PostLists from '../components/PostLists'
 import getPosts from '../composables/getPosts';
 
 
 export default {
-  components: { PostLists },
+  components: {
+    Spinner, PostLists },
    setup(){
     let {posts,error,load} =getPosts() //{posts,error,load}
     load();  

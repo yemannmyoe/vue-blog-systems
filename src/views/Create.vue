@@ -17,9 +17,13 @@
 
 <script>
 import { handleError, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 export default {
     setup(){
+        // this.$router.push("/")
+        let router=useRouter(); //this.$router
+        // console.log(router);
         let title = ref("");
         let body = ref("");
         let tag = ref("");
@@ -44,8 +48,10 @@ export default {
                 tags:tags.value
             })
           })
-        
-        
+          
+          //redirect user to home page
+          router.push({name:"home"});
+          
         }
 
         return {title,body,tag, handleKeydown,tags,addPost};
@@ -100,6 +106,7 @@ button{
     border: none;
     padding: 8px 16px;
     font-size: 18px;
+    cursor: pointer;
 }
 .pill{
     display: inline-block;

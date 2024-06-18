@@ -1,19 +1,38 @@
 {
-    "posts":[
-        {
-            "title":"post title 1",
-            "id" : 1,
-            "body":"lorem ipsum"
-        },
-        {
-            "title":"post title 2",
-            "id" : 2,
-            "body":"lorem ipsum"
-        },
-        {
-            "title":"post title 3",
-            "id" : 3,
-            "body":"lorem ipsum"
-        }
-    ]
+  "posts": [
+    {
+      "title": "post title 1",
+      "id": "1",
+      "body": "lorem ipsum"
+    },
+    {
+      "title": "post title 2",
+      "id": "2",
+      "body": "lorem ipsum"
+    },
+    {
+      "title": "post title 3",
+      "id": "3",
+      "body": "lorem ipsum"
+    },
+    {
+      "id": "b391",
+      "title": "Test",
+      "body": "Test",
+      "tags": [
+        "html",
+        "css",
+        "vue"
+      ]
+    },
+    {
+      "id": "d510",
+      "title": "Test2",
+      "body": "Test2",
+      "tags": [
+        "test123",
+        "testuii"
+      ]
+    }
+  ]
 }

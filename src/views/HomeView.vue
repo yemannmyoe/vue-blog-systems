@@ -41,5 +41,18 @@ export default {
 </script>
 
 <style>
-
+   .home{
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 10px;
+   }
+   .pill{
+    display: inline-block;
+    margin: 10px 10px 0 0;
+    color: #444;
+    background: #ddd;
+    padding: 8px;
+    border-radius: 20px;
+    font-size: 14px;
+}
 </style>

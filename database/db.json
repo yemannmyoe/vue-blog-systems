@@ -33,6 +33,14 @@
       "tags": [
         "vuejs"
       ]
+    },
+    {
+      "id": "5db7",
+      "title": "News",
+      "body": "News",
+      "tags": [
+        "News"
+      ]
     }
   ]
 }

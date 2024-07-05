@@ -1,7 +1,9 @@
+// firebase.js
+
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
-// Firebase configuration
+// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAcRIbh6svazI6EsKw9zSHMIsGYMaigcXM",
   authDomain: "vue-blog-system-b526b.firebaseapp.com",

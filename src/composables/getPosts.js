@@ -8,8 +8,8 @@ let getPosts = () => {
 
   let load = async () => {
     try {
-      const querySnapshot = await getDocs(collection(db, "posts"));
-      posts.value = querySnapshot.docs.map(doc => {
+      let res = await getDocs(collection(db, "posts"));
+      posts.value = res.docs.map(doc => {
         return { id: doc.id, ...doc.data() };
       });
     } catch (err) {

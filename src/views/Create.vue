@@ -18,6 +18,8 @@
 <script>
 import { handleError, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import {db} from '../firebase/config';
+import { collection, addDoc } from "firebase/firestore"; // Corrected Firestore imports
 
 export default {
     setup(){
@@ -36,23 +38,23 @@ export default {
             tag.value=""
         }
 
-        let addPost=async()=>{
-          await fetch("http://localhost:3000/posts",{
-            method:"POST",
-            headers:{
-                "Content-type":"application/json"
-            },
-            body:JSON.stringify({
-                title:title.value,
-                body:title.value,
-                tags:tags.value
-            })
-          })
-          
-          //redirect user to home page
-          router.push({name:"home"});
-          
-        }
+       // Function to add new post
+       let addPost = async () => {
+            let newPost = {
+                title: title.value,
+                body: body.value,
+                tags: tags.value
+            };
+            try {
+                // Adding the post to Firestore
+                let res = await addDoc(collection(db, "posts"), newPost);
+                // console.log('Document written with ID: ', res.id);
+                // Redirecting user to home page
+                router.push({ name: "home" });
+            } catch (error) {
+                console.error("Error adding document: ", error);
+            }
+        };
 
         return {title,body,tag, handleKeydown,tags,addPost};
 

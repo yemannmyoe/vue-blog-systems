@@ -1,6 +1,6 @@
 import { ref } from "vue";
 import { db } from "../firebase/config";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 
 let getPosts = () => {
   let posts = ref([]);
@@ -8,10 +8,12 @@ let getPosts = () => {
 
   let load = async () => {
     try {
-      let res = await getDocs(collection(db, "posts"));
-      posts.value = res.docs.map(doc => {
-        return { id: doc.id, ...doc.data() };
-      });
+      let q = query(collection(db, 'posts'), orderBy("created_at", "desc"));
+      let res = await getDocs(q);
+      posts.value = res.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
     } catch (err) {
       error.value = err.message;
     }

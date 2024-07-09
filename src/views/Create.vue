@@ -18,7 +18,7 @@
 <script>
 import { handleError, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import {db} from '../firebase/config';
+import { db, serverTimestamp } from '../firebase/config';
 import { collection, addDoc } from "firebase/firestore"; // Corrected Firestore imports
 
 export default {
@@ -43,7 +43,8 @@ export default {
             let newPost = {
                 title: title.value,
                 body: body.value,
-                tags: tags.value
+                tags: tags.value,
+                created_at: serverTimestamp()
             };
             try {
                 // Adding the post to Firestore

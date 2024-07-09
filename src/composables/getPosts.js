@@ -1,19 +1,29 @@
-import { ref } from "vue";
-import { db } from "../firebase/config";
-import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { ref, onUnmounted } from 'vue';
+import { db } from '../firebase/config';
+import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 
 let getPosts = () => {
   let posts = ref([]);
   let error = ref("");
 
-  let load = async () => {
+  let load = () => {
     try {
       let q = query(collection(db, 'posts'), orderBy("created_at", "desc"));
-      let res = await getDocs(q);
-      posts.value = res.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
+
+      let unsubscribe = onSnapshot(q, (snapshot) => {
+        posts.value = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+      }, (err) => {
+        error.value = err.message;
+      });
+
+      // Clean up the listener when the component is unmounted
+      onUnmounted(() => {
+        unsubscribe();
+      });
+
     } catch (err) {
       error.value = err.message;
     }

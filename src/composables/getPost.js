@@ -1,25 +1,26 @@
-import { ref } from "vue";
-import { db } from "../firebase/config";
-import { collection, query, orderBy, getDocs } from "firebase/firestore";
+let { ref } = require("vue");
+import {db} from "../firebase/config"
+import { doc, getDoc } from "firebase/firestore"; // Import necessary Firestore functions
 
-const getPosts = () => {
-    const posts = ref([]);
-    const error = ref("");
+let getPost=(id)=>{
+    let post=ref(null);
+    let error=ref("");
 
-    const load = async () => {
-        try {
-            const postsCollection = collection(db, "posts");
-            const postsQuery = query(postsCollection, orderBy("created_at", "desc"));
-            const querySnapshot = await getDocs(postsQuery);
-
-            posts.value = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        } catch (err) {
-            console.error("Error fetching posts:", err);
-            error.value = err.message;
+    let load=async()=>{
+        try{
+          let docRef = doc(db, "posts", id); // Get reference to the document
+          let docSnap = await getDoc(docRef); // Fetch the document snapshot
+    
+          if (docSnap.exists()) {
+            post.value = { id: docSnap.id, ...docSnap.data() }; // Use docSnap to get document data
+          } else {
+            throw new Error("Document not found");
+          }
+        }catch(err){
+            error.value=err.message;
         }
-    };
+    }
+    return {post,error,load};
+}
 
-    return { posts, error, load };
-};
-
-export default getPosts;
+export default getPost;
